@@ -25,10 +25,16 @@ export class HeroDetailComponent implements OnInit {
         .switchMap((params: Params) => this.heroService.getHero(+params['id']))
         .subscribe(hero => this.hero = hero);
     }
+    
+    @Input() hero: Hero;
 
     goBack(): void {
     this.location.back();
     }
 
-    @Input() hero: Hero;
+    save(): void {
+    this.heroService.update(this.hero)
+        .then(() => this.goBack());
+    }
+
 }
